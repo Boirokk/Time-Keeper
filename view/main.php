@@ -8,7 +8,7 @@
                     <label class="col-form-label" for="inputDefault">Operater Initials <?php if (!empty($msg)) {
                             echo "<span class='badge badge-pill badge-success'>" . $msg . "</span>";
                         } ?></label>
-                    <input autofocus type="text" name="initials" class="form-control"
+                    <input autofocus type="text" value="Brandin McWeeney" name="initials" class="form-control"
                            value="<?php echo htmlspecialchars($_SESSION['initials']); ?>"
                            placeholder="Enter your Initials" id="inputDefault">
                 </div>
@@ -16,11 +16,17 @@
                 <div class="form-group">
                     <label class="col-form-label" for="inputDefault">Dept. Code</label>
                     <select name="dept_code" class="custom-select">
-                        <option>Open this select menu</option>
-                        <option>001</option>
-                        <option>002</option>
-                        <option>003</option>
-                        <option>004</option>
+                        <option>200-CNC</option>
+                        <option>201-Production Boats</option>
+                        <option>204-Mill</option>
+                        <option>205-Jig Room</option>
+                        <option>206-Seams</option>
+                        <option>207-Maintenance</option>
+                        <option>208-Chemical</option>
+                        <option>209-Cage</option>
+                        <option>210-Esthec</option>
+                        <option>225-Steps</option>
+                        <option>226-Chris Craft</option>
                     </select>
                 </div>
 
@@ -62,18 +68,14 @@
                 <div class="form-group">
                     <label class="col-form-label" for="inputDefault">Task</label>
                     <select name="task" class="custom-select">
-                        <option>Open this select menu</option>
+                        <option>Support</option>
                         <option>Maintenance</option>
-                        <option>Clean Battens</option>
-                        <option>Remove Access Wood</option>
-                        <option>Load Batten Jig</option>
-                        <option>Unload Batten Jig</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label class="col-form-label" for="inputDefault">Quantity</label>
-                    <input type="text" name="quantity" class="form-control"
+                    <input type="text" name="quantity" value="1" class="form-control"
                            value="<?php echo htmlspecialchars($_SESSION['quantity']); ?>"
                            placeholder="How many parts?" id="inputDefault">
                 </div>

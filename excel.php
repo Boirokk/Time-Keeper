@@ -3,13 +3,13 @@
     <tr>
       <th scope="col">Day</th>
       <th scope="col">Date</th>
+      <th scope="col">Job #</th>
       <th scope="col">Operator</th>
       <th scope="col">D Code</th>
-      <th scope="col">Job #</th>
+      <th scope="col">Total Runtime</th>
       <th scope="col">Description</th>
       <th scope="col">Task</th>
       <th scope="col">Quantity</th>
-      <th scope="col">Total Runtime</th>
     </tr>
     </thead>
     <tbody>
@@ -19,12 +19,9 @@
         <tr>
             <td><?php echo date('D') ?></td>
             <td><?php echo date('Y-m-d') ?></td>
+            <td><?php echo htmlspecialchars($entry['part_number']); ?></td>
             <td><?php echo htmlspecialchars($entry['initials']); ?></td>
             <td><?php echo htmlspecialchars($entry['dept_code']); ?></td>
-            <td><?php echo htmlspecialchars($entry['part_number']); ?></td>
-            <td><?php echo htmlspecialchars($entry['description']); ?></td>
-            <td><?php echo htmlspecialchars($entry['task']); ?></td>
-            <td><?php echo htmlspecialchars($entry['quantity']); ?></td>
             <td>
                 <?php
                 $id = $entry['start_id'];
@@ -36,6 +33,9 @@
 
                 ?>
             </td>
+            <td><?php echo htmlspecialchars($entry['description']); ?></td>
+            <td><?php echo htmlspecialchars($entry['task']); ?></td>
+            <td><?php echo htmlspecialchars($entry['quantity']); ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>

@@ -91,7 +91,8 @@ switch ($action) {
         delete_chris_craft($ID);
         $msg_deleted = "Part Deleted!";
         $models = get_models();
-        include('view/edit.php');
+        // include('view/edit.php');
+        header('Location: view/refresh.php');
         break;
 
     case 'delete_entry':
@@ -100,14 +101,16 @@ switch ($action) {
         $start_id = filter_input(INPUT_POST, 'delete_entry');
         delete_entry($start_id);
         $entries = get_entry();
-        include('view/table.php');
+        // include('view/table.php');
+        header('Location: view/refresh.php');
         break;
 
     case 'table':
         $title = 'Daily Entries';
         $active_table = 'active';
         $entries = get_entry();
-        include('view/table.php');
+        header('Location: view/refresh.php');
+        // include('view/table.php');
         break;
 
     case 'excel':
@@ -116,6 +119,6 @@ switch ($action) {
         break;
 
     default:
-        echo "<h1>Error: No Action Found!</h1>";
+        $msg_error = "<h1>Error: No Action Found!</h1>";
         break;
 }

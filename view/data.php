@@ -1,12 +1,62 @@
-<?php include('header.php'); ?>
+<?php
 
-<br>
-<form class="no-mobile" action="." method="post">
-    <input id="response" type="hidden" name="action" value="">
-    <input onclick="myFunction()" class="btn btn-lg btn-success btn-block" type="submit" name="export_excel"
-           value="Export to Excel">
-</form>
-<br>
+class Database
+{
+    private static $dsn = 'mysql:hostname=localhost;dbname=personaltimekeeper';
+    private static $username = 'boirokk';
+    private static $password = '1OMMpXQz7x6bSlHqT2b1';
+    private static $db;
+
+    public function __construct()
+    {
+    }
+
+    public static function getDB()
+    {
+        if (!isset(self::$db)) {
+            try {
+                self::$db = new PDO(self::$dsn,
+                    self::$username,
+                    self::$password);
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                exit();
+            }
+        }
+        return self::$db;
+    }
+}
+
+function get_entry()
+{
+    $db = Database::getDB();
+
+    $query = 'SELECT * FROM start INNER JOIN stop ON start.start_id=stop.start_id ORDER BY start_time ASC';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $models = $statement->fetchAll();
+    $statement->closeCursor();
+    return $models;
+}
+
+function get_row($id)
+{
+    $db = Database::getDb();
+
+    $query = "SELECT * FROM start INNER JOIN stop ON start.start_id=stop.start_id WHERE start.start_id=:id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+    $time = $statement->fetch();
+    $statement->closeCursor();
+    return $time;
+}
+
+
+$entries = get_entry();
+?>
+
+
 
 <table class="table table-hover">
     <thead>
@@ -47,7 +97,7 @@
                 ?>
             </td>
             <td>
-                <form class="" action="." method="post">
+                <form class="" action=".." method="post">
                     <input type="hidden" name="action" value="delete_entry">
                     <input type="hidden" name="delete_entry"
                            value="<?php echo htmlspecialchars($entry['start_id']); ?>">
@@ -60,27 +110,3 @@
     <?php endforeach; ?>
     </tbody>
 </table>
-
-
-
-<?php
-$datetime1 = new DateTime(end($array_stop));
-$datetime2 = new DateTime(current($array_start));
-$interval_total = $datetime1->diff($datetime2);
-
-echo 'Total Operating Time: <br />' . $interval_total->format('%H:%I:%S');
-echo "<br /> <br />This app is brought to you by, Chad Czilli. &copy 2018";
-?>
-<script>
-    function myFunction() {
-        var txt = document.getElementById('response');
-        var r = confirm("This will erase the current data.\nDo you wish to proceed?\nThis cannot be undone!");
-        if (r == true) {
-            txt.value = "excel";
-        } else {
-            txt.value = "table";
-        }
-        document.getElementById("demo").innerHTML = txt;
-    }
-</script>
-<?php include('footer.php') ?>
