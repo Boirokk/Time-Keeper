@@ -46,5 +46,5 @@ header("Content-Type: application/xls");
 header("Content-Disposition: attachment; filename=cnc_daily_time_$tdate.xls");
 delete_all_stop();
 delete_all_start();
-// header('Location: index.php?action=table');
+// header('Location: /index.php?action=table');
 ?>

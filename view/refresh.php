@@ -32,13 +32,13 @@ $title = 'Brandin\'s Entries'; ?>
                 <a class="nav-link" href="../index.php?action=custom">Custom Job</a>
             </li>
             <li class="nav-item <?php echo $active_chris_craft; ?>">
-                <a class="nav-link" href="./index.php?action=chris_craft">Repeat Job</a>
+                <a class="nav-link" href="../index.php?action=chris_craft">Repeat Job</a>
             </li>
             <li class="nav-item <?php echo $active_edit; ?>">
-                <a class="nav-link" href="./index.php?action=edit">Edit Repeat List</a>
+                <a class="nav-link" href="../index.php?action=edit">Edit Repeat List</a>
             </li>
             <li class="nav-item <?php echo $active_table; ?>">
-                <a class="nav-link" href="./index.php?action=table">Daily Entries</a>
+                <a class="nav-link" href="../index.php?action=table">Daily Entries</a>
             </li>
         </ul>
 
@@ -49,11 +49,9 @@ $title = 'Brandin\'s Entries'; ?>
 <div class="container" align="center">
 
 
-
-
 <br>
-<form class="no-mobile" action="." method="post">
-    <input id="response" type="hidden" name="action" value="">
+<form class="no-mobile" action="../" method="post">
+    <input id="response" type="hidden" name="action" value="excel">
     <input onclick="myFunction()" class="btn btn-lg btn-success btn-block" type="submit" name="export_excel"
            value="Export to Excel">
 </form>
@@ -64,7 +62,6 @@ $title = 'Brandin\'s Entries'; ?>
 
 
 
-
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -72,6 +69,17 @@ $title = 'Brandin\'s Entries'; ?>
 				$('#show').load('data.php')
 			}, 1000);
 		});
+
+    function myFunction() {
+        var txt = document.getElementById('response');
+        var r = confirm("This will erase the current data.\nDo you wish to proceed?\nThis cannot be undone!");
+        if (r == true) {
+            txt.value = "excel";
+        } else {
+            txt.value = "table";
+        }
+        document.getElementById("demo").innerHTML = txt;
+    }
 	</script>
 
 
@@ -79,6 +87,6 @@ $title = 'Brandin\'s Entries'; ?>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> -->
 </body>
 </html>

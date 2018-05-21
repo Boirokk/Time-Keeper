@@ -110,3 +110,12 @@ $entries = get_entry();
     <?php endforeach; ?>
     </tbody>
 </table>
+
+<?php
+$datetime1 = new DateTime(end($array_stop));
+$datetime2 = new DateTime(current($array_start));
+$interval_total = $datetime1->diff($datetime2);
+
+echo 'Total Operating Time: <br />' . $interval_total->format('%H:%I:%S');
+echo "<br /> <br />Chad Czilli &copy 2018";
+?>
