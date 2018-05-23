@@ -51,6 +51,18 @@ function get_entry()
 {
     $db = Database::getDB();
 
+    $query = 'SELECT * FROM start';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $models = $statement->fetchAll();
+    $statement->closeCursor();
+    return $models;
+}
+
+function get_entry_finish()
+{
+    $db = Database::getDB();
+
     $query = 'SELECT * FROM start INNER JOIN stop ON start.start_id=stop.start_id ORDER BY start_time ASC';
     $statement = $db->prepare($query);
     $statement->execute();

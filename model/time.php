@@ -68,6 +68,7 @@ function toggle($initials, $part_number, $description, $dept_code, $task, $quant
             $_SESSION['dept_code'] = $dept_code;
             $_SESSION['task'] = $task;
             $_SESSION['quantity'] = $quantity;
+
             return $_SESSION['toggle'];
         }
     }

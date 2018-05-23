@@ -27,17 +27,30 @@ class Database
     }
 }
 
-function get_entry()
+
+function get_start_entry()
 {
     $db = Database::getDB();
 
-    $query = 'SELECT * FROM start INNER JOIN stop ON start.start_id=stop.start_id ORDER BY start_time ASC';
+    $query = 'SELECT * FROM start';
     $statement = $db->prepare($query);
     $statement->execute();
     $models = $statement->fetchAll();
     $statement->closeCursor();
     return $models;
 }
+
+// function get_entry()
+// {
+//     $db = Database::getDB();
+//
+//     $query = 'SELECT * FROM start INNER JOIN stop ON start.start_id=stop.start_id ORDER BY start_time ASC';
+//     $statement = $db->prepare($query);
+//     $statement->execute();
+//     $models = $statement->fetchAll();
+//     $statement->closeCursor();
+//     return $models;
+// }
 
 function get_row($id)
 {
@@ -53,10 +66,8 @@ function get_row($id)
 }
 
 
-$entries = get_entry();
+$entries = get_start_entry();
 ?>
-
-
 
 <table class="table table-hover">
     <thead>
@@ -76,8 +87,12 @@ $entries = get_entry();
     $array_stop = array();
     ?>
     <?php foreach ($entries as $entry): ?>
-        <?php array_push($array_start, $entry['start_time']);
-        array_push($array_stop, $entry['stop_time']);
+        <?php
+        if ($entry['start_time'] != null) {
+            array_push($array_start, $entry['start_time']);
+        } elseif ($entry['stop_time'] != null) {
+            array_push($array_stop, $entry['stop_time']);
+        }
         ?>
         <tr align="center">
             <td><?php echo htmlspecialchars($entry['initials']); ?></td>
@@ -88,13 +103,18 @@ $entries = get_entry();
             <td><?php echo htmlspecialchars($entry['quantity']); ?></td>
             <td>
                 <?php
-                $id = $entry['start_id'];
-                $time = get_row($id);
-                $datetime1 = new DateTime($time['stop_time']);
-                $datetime2 = new DateTime($time['start_time']);
-                $interval = $datetime1->diff($datetime2);
-                echo $interval->format('%H:%I:%S');
+                  $id = $entry['start_id'];
+                  $time = get_row($id);
+                  $datetime1 = new DateTime($time['stop_time']);
+                  $datetime2 = new DateTime($time['start_time']);
+                  $interval = $datetime1->diff($datetime2);
+                  if ($interval->format('%H:%I:%S') == '00:00:00') {
+                    echo "ACTIVE";
+                  } else {
+                    echo $interval->format('%H:%I:%S');
+                  }
                 ?>
+
             </td>
             <td>
                 <form class="" action=".." method="post">
@@ -116,6 +136,6 @@ $datetime1 = new DateTime(end($array_stop));
 $datetime2 = new DateTime(current($array_start));
 $interval_total = $datetime1->diff($datetime2);
 
-echo 'Total Operating Time: <br />' . $interval_total->format('%H:%I:%S');
+echo 'Total Punch time for the day: ' . $interval_total->format('%H:%I:%S');
 echo "<br /> <br />Chad Czilli &copy 2018";
 ?>
